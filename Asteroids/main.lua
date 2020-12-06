@@ -53,7 +53,7 @@ function love.load()
     vtokens = 0
     midState = 12
     
-    gameState = 'midScreen'
+    gameState = 'screen'
 end
 
 function love.resize(w, h)
