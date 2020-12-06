@@ -18,13 +18,9 @@ end
     on whether they are overlapping.
 ]]
 function Bullet:collides(asteroid)
-    if self.x > asteroid.x + asteroid.radius or asteroid.x > self.x + asteroid.radius then
+    if (self.x - asteroid.x)^2 + (self.y - asteroid.y)^2 >= (self.radius + asteroid.radius)^2 then
         return false
     end
-
-    if self.y > asteroid.y + asteroid.radius or asteroid.y > self.y + asteroid.radius then
-        return false
-    end 
 
     return true
 end

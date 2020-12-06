@@ -13,8 +13,8 @@ function Asteroid:init(x, y, radius, stage)
     self.radius = radius
     self.stage = stage
 
-    self.dy = math.random(2) == 1 and math.random(-100, -80) or math.random(80, 100)
-    self.dx = math.random(2) == 1 and math.random(-100, -80) or math.random(80, 100)
+    self.dy = math.random(2) == 1 and math.random(-90, -80) or math.random(80, 90)
+    self.dx = math.random(2) == 1 and math.random(-90, -80) or math.random(80, 90)
 end
 
 

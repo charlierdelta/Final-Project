@@ -8,6 +8,7 @@ Ship = Class{}
     Ship takes an x and y for starting position as well as a radius to determine size.
     Initializes heading to point right and dx and dy to zero so it does not move until player input.
 ]]
+
 function Ship:init(x, y, radius)
     self.x = x
     self.y = y
@@ -17,18 +18,31 @@ function Ship:init(x, y, radius)
     self.dy = 0
 end
 
-function Ship:collides(asteroid)
-    if self.x > asteroid.x + asteroid.radius + self.radius or asteroid.x > self.x + asteroid.radius + self.radius then
+--[[
+    As all collidable objects in this game are circles this function determines if a collision occured 
+    by essentially drawing a triangle between the x position and y position of each object and comparing
+    the squared difference of each to the hypotenuse.
+    Collision occurs when the squared differences are less then the squared radii.
+    Concepts and code from:
+    https://simplegametutorials.github.io/love/asteroids/
+]]
+function Ship:collides(object)
+    if (self.x - object.x)^2 + (self.y - object.y)^2 >= (self.radius + object.radius)^2 then
         return false
     end
-
-    if self.y > asteroid.y + asteroid.radius + self.radius or asteroid.y > self.y + asteroid.radius + self.radius then
-        return false
-    end 
 
     return true
 end
 
+--[[
+    Updates position with a given dt. If x or y position is above or below certain values, it updates
+    the  position to the opposite side of the screen to give the appearence that the ship travels 
+    from one side to the other. 
+    Keeps heading between certain values by modulo division of 2pi so it cannot shrink or grow endlessly
+        Concept for above taken from:
+        https://simplegametutorials.github.io/love/asteroids/
+            
+]]
 function Ship:update(dt)
     if self.y < 0 and self.dy < 0 then
         self.y = VIRTUAL_HEIGHT - self.radius - 1
@@ -66,6 +80,7 @@ end
     the ship's position and the heading and is as long
     as the radius
 ]]
+
 function Ship:render()
     love.graphics.circle('fill', self.x, self.y, self.radius)
     love.graphics.setColor(1, 0, 0)
